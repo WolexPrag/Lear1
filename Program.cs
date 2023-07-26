@@ -1,29 +1,38 @@
-﻿using System.Collections.Generic;
-using System;
-
+﻿using System;
+using static System.Console;
 
 namespace Lear1
 {
-
-    class Program
+    internal class Program
     {
-        public static void Print(object text)
+        private const int MapWight = 30;
+        private const int MapHeight = 20;
+        private const ConsoleColor BorderColor = ConsoleColor.Gray;
+
+        private static void Main(string[] args)
         {
-            Console.WriteLine(text);
+            SetWindowSize(MapWight, MapHeight);
+
+            SetBufferSize(MapWight, MapHeight);
+
+            CursorVisible = false;
+
+            DrawBorder();
+            ReadKey();
         }
-        public static string Input(string text = "")
+
+        private static void DrawBorder()
         {
-            Console.Write(text);
-            return Console.ReadLine();
-        }
-        public static decimal InputDecimal(string text = "")
-        {
-            Console.Write(text);
-            return decimal.Parse(Console.ReadLine());
-        }
-        static void Main(string[] args)
-        {
-            
+            for (int i = 0; i < MapWight; i++)
+            {
+                new Pixel(i, 0, BorderColor).Draw();
+                new Pixel(i, MapHeight - 1, BorderColor).Draw();
+            }
+            for (int i = 0; i < MapHeight; i++)
+            {
+                new Pixel(0, i, BorderColor).Draw();
+                new Pixel(MapWight - 1, i, BorderColor).Draw();
+            }
         }
     }
 }

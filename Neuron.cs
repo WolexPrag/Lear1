@@ -1,5 +1,4 @@
-﻿using System;
-public class Neuron
+﻿public class Neuron
 {
     private decimal weight = 0.5m;
     public decimal LastError { get; private set; }
