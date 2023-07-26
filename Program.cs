@@ -1,12 +1,14 @@
 ﻿using System;
 using static System.Console;
-
+using System.Threading;
 namespace Lear1
 {
     internal class Program
     {
-        private const int MapWight = 30;
-        private const int MapHeight = 20;
+        public static bool IsPlay = true;
+        public static Byrd byrd = new Byrd(MapWight / 2, MapHeight /2);
+        private const int MapWight = 15;
+        private const int MapHeight = 9;
         private const ConsoleColor BorderColor = ConsoleColor.Gray;
 
         private static void Main(string[] args)
@@ -16,11 +18,61 @@ namespace Lear1
             SetBufferSize(MapWight, MapHeight);
 
             CursorVisible = false;
+            
 
             DrawBorder();
+            Update();
             ReadKey();
         }
+        public static void Update()
+        {
+            int CounPassFps = 0;
+            do
+            {
+                byrd.Clear();
+                Input();
+                byrd.Fall();
+                CheakByrd();
+                byrd.Draw();
+                Thread.Sleep(200);
+                
+                CounPassFps++;
+                WriteLine(CounPassFps);
+            }
+            while (IsPlay == true);
+           
+        }
+        public static void GameOver()
+        {
+            IsPlay = false;
+            WriteLine("GameOver");
+        }
+        public static void CheakByrd()
+        {
+            if (byrd.Y>MapHeight - 2)
+            {
+                GameOver();
+            }
+            if (byrd.Y < 2)
+            {
+                GameOver();
+            }
+        }
+        public static void Input()
+        {
+            if (!KeyAvailable) return;
+            ConsoleKey key = ReadKey(true).Key;
+            switch (key)
+            {
+                case ConsoleKey.Spacebar:
+                    byrd.Jump();
+                    break;
+                case ConsoleKey.Escape:
+                    IsPlay = false;
+                    break;
+            }
 
+        }
         private static void DrawBorder()
         {
             for (int i = 0; i < MapWight; i++)
