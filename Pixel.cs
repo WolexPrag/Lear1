@@ -7,11 +7,12 @@ namespace Lear1
     public readonly struct Pixel : IGetPosition,IPrint
     {
         private const char pixelChar = '█';
-        public Pixel(int x,int y,ConsoleColor color)
+        public Pixel(int x,int y,ConsoleColor color = ConsoleColor.White)
         {
             X = x;
             Y = y;
             this.color = color;
+            
         }
         public int X { get; }
         public int Y { get; }
@@ -19,13 +20,15 @@ namespace Lear1
      
         public void Draw()
         {
-            Console.SetCursorPosition(X, Y);
+            Console.SetCursorPosition(X, Y); 
+            Console.ForegroundColor = color;
             Console.Write(pixelChar);
         }
         
         public void Clear()
         {
             Console.SetCursorPosition(X, Y);
+
             Console.Write(' ');
         }
 

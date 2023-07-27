@@ -8,7 +8,7 @@ namespace Lear1
 {
     public interface IPrint
     {
-        public void Draw() { new Pixel().Draw(); }
-        public void Clear() { new Pixel().Clear(); }
+        public void Draw();
+        public void Clear();
     }
 }
