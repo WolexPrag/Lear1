@@ -5,54 +5,82 @@ namespace Lear1
 {
     internal class Program
     {
-        public static bool IsPlay;
         public static Byrd byrd ;
-        private const int MapWight = 35;
-        private const int MapHeight = 25;
+        public static Tunel tunel;
+        public static Random randomTunel = new Random();
+        
         private static ConsoleColor BorderColor = ConsoleColor.DarkYellow;
         public static ConsoleColor ScoreColor = ConsoleColor.Blue;
-        public static Random randomTunel = new Random();
-        public static Tunel tunel;
+        
+        public static bool IsPlay;
+        private static int MapWight = 35;
+        private static int MapHeight = 25;
         public static int Score;
-        public static int SpeedTunel;
+        public static int Gravitation;
+        public static int HeightJumpPlayer;
+        public static int CountPassFps;
+        public static int EndWayTunel;
+        public static int StartWayTunel;
+        public static int SpeedGame = 50;
+
         private static void Main(string[] args)
         {
-
-            ReDrawAll();
+            Awake();
             Update();
-            
+        }
+        public static void SetParamatersValue()
+        {
+            IsPlay = true;
+            Score = 0;
+            Gravitation = 1;
+            HeightJumpPlayer = 3;
+            CountPassFps = 0;
+            EndWayTunel = 0;
+            StartWayTunel = MapWight - 2;
+        }
+        public static void Awake()
+        {
+            SetWindowSize(MapWight, MapHeight);
+            SetBufferSize(MapWight, MapHeight);
+            CursorVisible = false;
+            SetParamatersValue();
+            DrawBorder();
+            byrd = new Byrd(new Vector2D(MapWight / 2, MapHeight / 2), HeightJump: 3, HeightFall: Gravitation);
+            tunel = new Tunel(GetStartWayTunel(tunel), MapHeight, HeightSpace: 9);
         }
         public static void Update()
         {
-            IsPlay = true;
-            byrd = new Byrd(MapWight / 2, MapHeight / 2);
-            tunel = new Tunel(0, 0, MapHeight);
-            int CountPassFps = 0;
-            Score = 0;
             do
             {
-                if (MapHeight != WindowHeight || MapWight != WindowWidth)
-                {
-                    ReDrawAll();
-                }
-                if (CountPassFps > 5) 
-                {
-                    
-                    PlayerAction();
-
-                    if (!(MapHeight < 15 || MapWight < 25))
-                    {
-                        WorldAction(CountPassFps);
-                    }
-                }
-                Thread.Sleep(100);
-                CountPassFps++;
-                DisplayScore();
+                
+                Clear();
+                Actions();
+                Display();
+                Thread.Sleep(SpeedGame);
             }
             while (IsPlay == true);
-           
+            
         }
-        
+        public static void Clear()
+        {
+            byrd.Clear();
+            tunel.Clear();
+        }
+        public static void Display()
+        {
+            byrd.Draw();
+            tunel.Draw();
+            DisplayScore();
+        }
+        public static void Actions()
+        {
+            if (CountPassFps > 5)
+            {
+                PlayerAction();
+                WorldAction(); 
+            }
+            CountPassFps++;
+        }
         public static void DisplayScore()
         {
             SetCursorPosition(1,1);
@@ -61,57 +89,49 @@ namespace Lear1
         }
         public static void PlayerAction()
         {
-            byrd.Clear();
             Input();
             byrd.Fall();
             CheakByrd();
-            byrd.Draw();
         }
-        public static void WorldAction(int CountPassFps)
+        public static void WorldAction()
         {
-            tunel.Clear();
-            if (tunel.X < byrd.X - 7 && CountPassFps > 15)
+            MoveTunel(ref tunel);
+            CheakPositionTunel(ref tunel);
+        }
+        public static int Randomizer(int min, int max)
+        {
+            return randomTunel.Next(min, max);
+        }
+        public static void MoveTunel(ref Tunel tunel)
+        {
+            tunel.position.X = tunel.position.X - 1;
+        }
+        public static void CheakPositionTunel(ref Tunel tunel)
+        {
+            if (tunel.position.X <= EndWayTunel)
             {
-                ReSpawnTunel();
+                tunel.position = GetStartWayTunel(tunel);
+                Score++;
             }
-            if (CountPassFps > 20)
-            {
-                MoveTunel(1);
-                tunel.Draw();
-            }
-            
-            
         }
-        public static void ReSpawnTunel()
+        public static Vector2D GetStartWayTunel(Tunel tunel)
         {
-            tunel.Y = randomTunel.Next(1,MapHeight-tunel.HeightSpace);
-            tunel.X = byrd.X + 7;
-            Score++;
-        }
-        public static void MoveTunel(int howFast)
-        {
-            tunel.X = tunel.X - howFast;
-        }
-        public static void GameOver()
-        {
-            IsPlay = false;
-            SetCursorPosition(MapWight/2,MapHeight/2);
-            WriteLine($"GameOver,\n Your Score {Score}");
-            Stoper();
+            return new Vector2D((StartWayTunel),(Randomizer(tunel.HeightSpace, (MapHeight - tunel.HeightSpace))));
         }
         public static void CheakByrd()
         {
-            if (byrd.Y>MapHeight - 2)
+            if (byrd.position.Y >= MapHeight-1)
             {
                 GameOver();
             }
-            if (byrd.Y < 2)
+            if (byrd.position.Y <= 1)
             {
                 GameOver();
             }
-            if (!(byrd.Y > tunel.Y && byrd.Y < tunel.Y + tunel.HeightSpace)&&tunel.X == byrd.X)
+            if (tunel.CheakCollision(byrd.position) == true)
             {
                 GameOver();
+
             }
         }
         public static void Input()
@@ -144,31 +164,26 @@ namespace Lear1
         }
         public static void ClearDisplay()
         {
-            for (int y = 0; y < MapHeight; y++)
+            for (int y = 0; y < WindowHeight; y++)
             {
-                for (int x = 0; x < MapWight; x++)
+                for (int x = 0; x < WindowWidth; x++)
                 {
                     new Pixel(x,y).Clear();
                 }
             }
         }
-        public static void ReDrawAll()
+        public static void GameOver()
         {
-            SetWindowSize(MapWight, MapHeight);
-            SetBufferSize(MapWight, MapHeight);
             ClearDisplay();
-            DrawBorder();
-            CursorVisible = false;
+            IsPlay = false;
+            SetCursorPosition(MapWight / 2, MapHeight / 2);
+            WriteLine($"GameOver,\n Your Score {Score}");
+            Stoper();
         }
         public static void Stoper() 
         {
-            
             while (true)
             {
-                if (MapHeight != WindowHeight || MapWight != WindowWidth)
-                {
-                    ReDrawAll();
-                }
                 Write("play again: ");
                 string str = ReadLine();
                 if (String.Equals(str, "no"))
@@ -177,13 +192,11 @@ namespace Lear1
                 }
                 if (String.Equals(str, "yes"))
                 {
-                    ReDrawAll();
-                    DrawBorder();
+                    ClearDisplay();
+                    Awake();
                     Update();
                 }
             }
-            
- 
         }
     }
 }

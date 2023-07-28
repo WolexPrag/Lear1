@@ -4,37 +4,29 @@ namespace Lear1
 {
 
 
-    public readonly struct Pixel : IGetPosition,IPrint
+    public readonly struct Pixel : IPrint
     {
         private const char pixelChar = '█';
-        public Pixel(int x,int y,ConsoleColor color = ConsoleColor.White)
+        public Pixel(int x = 0, int y = 0, ConsoleColor color = ConsoleColor.White)
         {
-            X = x;
-            Y = y;
+            position = new Vector2D(x,y);
             this.color = color;
             
         }
-        public int X { get; }
-        public int Y { get; }
+        public readonly Vector2D position;
         public ConsoleColor color { get; }
      
         public void Draw()
         {
-            Console.SetCursorPosition(X, Y); 
+            Console.SetCursorPosition(position.X, position.Y); 
             Console.ForegroundColor = color;
             Console.Write(pixelChar);
         }
         
         public void Clear()
         {
-            Console.SetCursorPosition(X, Y);
-
+            Console.SetCursorPosition(position.X, position.Y);
             Console.Write(' ');
-        }
-
-        public (int, int) GetPosition()
-        {
-            return (X,Y);
         }
     }
 }

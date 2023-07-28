@@ -1,45 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lear1
 {
-    public struct Byrd : IGetPosition,IPrint
+    public struct Byrd :  IPrint
     {
-        public int X { set; get; }
-        public int Y { set; get; }
+        public Vector2D position;
         public int HeightJump;
         public int HeightFall;
         public ConsoleColor byrdColor;
-        public Byrd(int X,int Y,ConsoleColor byrdColor = ConsoleColor.Magenta, int HeightJump = 3, int HeightFall = 1)
+        public Byrd(Vector2D position,ConsoleColor byrdColor = ConsoleColor.Magenta, int HeightJump = 3, int HeightFall = 1)
         {
-            this.X = X;
-            this.Y = Y;
+            this.position = position;
             this.HeightJump = HeightJump;
             this.HeightFall = HeightFall;
             this.byrdColor = byrdColor;
         }
         public void Jump()
         {
-            Y = Y - HeightJump;
+            position.Y = position.Y - HeightJump;
         }
         public void Fall() 
-        { 
-            Y = Y + HeightFall; 
+        {
+            position.Y = position.Y + HeightFall; 
         }
         public void Draw()
         {
-            new Pixel(X, Y, byrdColor).Draw();
+            new Pixel(position.X, position.Y, byrdColor).Draw();
         }
         public void Clear()
         {
-            new Pixel(X, Y, byrdColor).Clear();
+            new Pixel(position.X, position.Y, byrdColor).Clear();
         }
-        public (int, int) GetPosition()
-        {
-            return (X,Y);
-        }
+        
     }
 }
