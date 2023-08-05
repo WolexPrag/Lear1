@@ -1,32 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lear1
 {
 
 
-    public readonly struct Pixel : IPrint
+    public readonly struct Pixel : IDisplay
     {
+        public static List<Pixel> pixels;
         private const char pixelChar = '█';
-        public Pixel(int x = 0, int y = 0, ConsoleColor color = ConsoleColor.White)
+        public Pixel(Vector2D position, ConsoleColor color = ConsoleColor.White)
         {
-            position = new Vector2D(x,y);
+            this.position = position;
             this.color = color;
-            
         }
         public readonly Vector2D position;
         public ConsoleColor color { get; }
-     
-        public void Draw()
+        public void Display()
         {
             Console.SetCursorPosition(position.X, position.Y); 
             Console.ForegroundColor = color;
             Console.Write(pixelChar);
+            if (pixels == null)
+            {
+                pixels = new List<Pixel>() {this};
+            }
+            else
+            {
+                pixels.Add(this);
+            }
         }
-        
         public void Clear()
         {
             Console.SetCursorPosition(position.X, position.Y);
             Console.Write(' ');
+            pixels.Remove(this);   
+        }
+        public static void ClearDisplay()
+        {
+            if (pixels == null)
+            {
+                return;
+            }
+            for (int i = 0; i < pixels.Count; i++)
+            {
+               pixels[i].Clear();
+            }
         }
     }
 }

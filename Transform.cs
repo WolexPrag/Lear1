@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿using System.Collections.Generic;
+using static System.Console;
 
 namespace Lear1
 {
@@ -57,10 +58,53 @@ namespace Lear1
             }
             return y;
         }
-    }
-
-    internal interface ICheakCollison 
-    {
-        public bool CheakCollision(Vector2D other);
+        public static Vector2D operator +(Vector2D vector1,Vector2D vector2)
+        {
+            return new Vector2D(vector1.X + vector2.X, vector1.Y + vector2.Y);
+        }
+        public static Vector2D operator -(Vector2D vector1, Vector2D vector2)
+        {
+            return new Vector2D(vector1.X - vector2.X, vector1.Y - vector2.Y);
+        }
+        public static Vector2D operator *(Vector2D vector1, Vector2D vector2)
+        {
+            return new Vector2D(vector1.X * vector2.X, vector1.Y * vector2.Y);
+        }
+        public static Vector2D operator /(Vector2D vector1, Vector2D vector2)
+        {
+            return new Vector2D(vector1.X / vector2.X, vector1.Y / vector2.Y);
+        }
+        public static Vector2D operator *(Vector2D vector1, int value)
+        {
+            return new Vector2D(vector1.X * value, vector1.Y * value);
+        }
+        public static Vector2D operator /(Vector2D vector1, int value)
+        {
+            return new Vector2D(vector1.X / value, vector1.Y / value);
+        }
+        public static bool operator ==(Vector2D vector1, Vector2D vector2)
+        {
+            return (vector1.X == vector2.X) && (vector1.Y == vector2.Y);
+        }
+        public static bool operator !=(Vector2D vector1, Vector2D vector2)
+        {
+            return (vector1.X != vector2.X) && (vector1.Y != vector2.Y);
+        }
+        public static (bool,bool) operator >(Vector2D vector1, Vector2D vector2)
+        {
+            return ((vector1.X > vector2.X), (vector1.Y > vector2.Y));
+        }
+        public static (bool, bool) operator <(Vector2D vector1, Vector2D vector2)
+        {
+            return ((vector1.X < vector2.X), (vector1.Y < vector2.Y));
+        }
+        public static List<Vector2D> operator +(List<Vector2D> vectors,Vector2D vector)
+        {
+            for (int i = 0; i < vectors.Count; i++)
+            {
+                vectors[i] = vectors[i] + vector;
+            }
+            return vectors;
+        }
     }
 }

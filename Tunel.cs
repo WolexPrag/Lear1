@@ -1,61 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lear1
 {
-    internal struct Tunel : IPrint,ICheakCollison
-
+    public struct Tunel : IDisplay,ICheakCollison
     {
         public Vector2D position;
-        public int Weight;
-        public int HeightSpace;
-        public ConsoleColor Color;
-        public int MapHeight;
-        public Tunel(Vector2D position, int? MapHeight = null,int Weight = 1,int HeightSpace = 11,ConsoleColor Color = ConsoleColor.Green)
+        public Vector2D spaceMinPosition;
+        public Vector2D spaceMaxPosition;
+        public ConsoleColor color;
+        public Tunel(Vector2D position,Vector2D spaceMinPosition,Vector2D spaceMaxPosition,ConsoleColor colorTunel = ConsoleColor.Green)
         {
             this.position = position;
-            this.Weight = Weight;
-            this.HeightSpace = HeightSpace;
-            this.Color = Color;
-            this.MapHeight = MapHeight??(Console.WindowHeight);
+            this.spaceMinPosition = spaceMinPosition;
+            this.spaceMaxPosition = spaceMaxPosition;
+            this.color = colorTunel;
         }
-        public bool CheakCollision(Vector2D other)
+        public bool CheakCollision(Vector2D vector)
         {
-            if (other.X >= position.X && (Weight + position.X) >= other.X)
+            return InFullSpace(vector);
+        }
+        public bool InFullSpace(Vector2D vector)
+        {
+            if (spaceMinPosition.X <= vector.X && spaceMaxPosition.X >= vector.X)
             {
-                if (!(other.Y > position.Y && other.Y < position.Y + HeightSpace))
+                if (spaceMinPosition.Y <= vector.Y && spaceMaxPosition.Y >= vector.Y)
                 {
                     return true;
                 }
             }
             return false;
         }
-        public void Clear()
+        public void Display()
         {
-            for (int x = position.X; x < (Weight + position.X); x++)
+            for (int x = spaceMinPosition.X; x <= spaceMaxPosition.X; x++)
             {
-                for (int y = 1; y < MapHeight - 1; y++)
+                for (int y = spaceMinPosition.Y; y <= spaceMaxPosition.Y; y++)
                 {
-                    if (!(y > position.Y && y < position.Y + HeightSpace))
+                    if (InFullSpace(new Vector2D(x,y)))
                     {
-                        new Pixel(x: x, y: y, color: Color).Clear();
+                        new Pixel(new Vector2D(x: (x + position.X), y: (y + position.Y)),color).Display();
                     }
-
                 }
             }
         }
-        public void Draw()
+        public void Move(Vector2D position)
         {
-            for (int x = position.X; x < (Weight + position.X) ; x++)
-            {
-                for (int y = 1; y < MapHeight - 1; y++)
-                {
-                    if (!(y > position.Y && y < position.Y + HeightSpace))
-                    {
-                        new Pixel(x: x, y: y, color: Color).Draw();
-                    }
-
-                }
-            }
+            this.position = position;
         }
     }
 }

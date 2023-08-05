@@ -2,35 +2,26 @@
 
 namespace Lear1
 {
-    public struct Byrd :  IPrint
+    public struct Byrd : IDisplay
     {
         public Vector2D position;
-        public int HeightJump;
-        public int HeightFall;
-        public ConsoleColor byrdColor;
-        public Byrd(Vector2D position,ConsoleColor byrdColor = ConsoleColor.Magenta, int HeightJump = 3, int HeightFall = 1)
+        public ConsoleColor color;
+        public Byrd(Vector2D position,ConsoleColor color = ConsoleColor.Magenta)
         {
             this.position = position;
-            this.HeightJump = HeightJump;
-            this.HeightFall = HeightFall;
-            this.byrdColor = byrdColor;
+            this.color = color;
         }
-        public void Jump()
+        public void Fall(int Gravitation)
         {
-            position.Y = position.Y - HeightJump;
+            position.Y = position.Y + Gravitation;
         }
-        public void Fall() 
+        public void Jump(int Height)
         {
-            position.Y = position.Y + HeightFall; 
+            position.Y = position.Y + Height;
         }
-        public void Draw()
+        public void Display()
         {
-            new Pixel(position.X, position.Y, byrdColor).Draw();
+            new Pixel(position,color).Display();
         }
-        public void Clear()
-        {
-            new Pixel(position.X, position.Y, byrdColor).Clear();
-        }
-        
     }
 }
