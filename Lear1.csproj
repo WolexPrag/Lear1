@@ -13,4 +13,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Other\LearClass\" />
+  </ItemGroup>
+
 </Project>

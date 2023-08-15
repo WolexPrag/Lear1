@@ -22,6 +22,6 @@ namespace Lear1
         public void Display()
         {
             new Pixel(position,color).Display();
-        }
+        }  
     }
 }
