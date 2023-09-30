@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using static System.Console;
 
-namespace Lear1
+namespace Learn1.Game
 {
     public struct Vector2D
     {
 
-        public Vector2D(int x,int y)
+        public Vector2D(int x, int y)
         {
             _X = x;
             _Y = y;
@@ -15,7 +15,7 @@ namespace Lear1
         public int X
         {
             get { return _X; }
-            set 
+            set
             {
                 _X = CheakX(value);
             }
@@ -24,7 +24,7 @@ namespace Lear1
         public int Y
         {
             get { return _Y; }
-            set 
+            set
             {
                 _Y = CheakY(value);
 
@@ -42,7 +42,7 @@ namespace Lear1
             {
                 x = WindowWidth;
             }
-            
+
             return x;
         }
         public int CheakY(int y)
