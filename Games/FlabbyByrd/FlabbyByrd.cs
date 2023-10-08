@@ -1,7 +1,4 @@
-﻿using Learn1.Game;
-using System;
-using System.Collections.Generic;
-using static System.Console;
+﻿using System.Collections.Generic;
 
 namespace Learn1.Game.FlabbyByrd
 {

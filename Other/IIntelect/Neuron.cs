@@ -1,31 +1,54 @@
-﻿public class Neuron
+﻿using System;
+using System.Collections.Generic;
+namespace Learn1.Other.IIntelect
 {
-    private decimal weight = 0.5m;
-    public decimal LastError { get; private set; }
-    public decimal Smoothing { get; set; } = 0.00001m;
-    public decimal ProcessInputData(decimal input)
+    public class Neuron
     {
-        return input * weight;
-    }
-    public decimal RestoreInputData(decimal output)
-    {
-        return output / weight;
-    }
-    public void Train(decimal input, decimal expectedResult)
-    {
-        var actualResult = input * weight;
-        LastError = expectedResult - actualResult;
-        var correction = (LastError / actualResult) * Smoothing;
-        weight += correction;
-    }
-    public int Training(decimal input, decimal expectedResult)
-    {
-        int i = 0;
-        do
+        public List<double> weights;
+        public NeuronType neuronType;
+        public double output;
+        public Neuron(int inputCount, NeuronType type = NeuronType.Normal)
         {
-            i++;
-            Train(input, expectedResult);
-        } while (LastError > Smoothing || LastError < -Smoothing);
-        return i;
+            neuronType = type;
+            weights = new List<double>();
+            for (int i = 0; i < inputCount; i++)
+            {
+                weights.Add(1);
+            }
+        }
+        public double FeedForward(List<double> inputs) 
+        {
+            double sum = 0f;
+            for (int i = 0; i < inputs.Count; i++)
+            {
+                sum = sum + inputs[i] * weights[i];
+            }
+            if (neuronType != NeuronType.Input)
+            { 
+                output = Sigmoid(sum);
+            }
+            else
+            {
+                output = sum;
+            }
+            return output;
+        }
+        public void SetWeights(params double[] weights) 
+        {
+            for (int i = 0; i < weights.Length; i++)
+            {
+                this.weights[i] = weights[i];
+            }
+        }
+
+        public double Sigmoid(double x) 
+        {
+            return 1f / (1f + Math.Pow(Math.E, -x));
+        }
+        public override string ToString()
+        {
+            return output.ToString();
+        }
     }
+    
 }

@@ -1,7 +1,4 @@
-﻿using Learn1.Game;
-
-
-namespace Learn1.Game.FlabbyByrd
+﻿namespace Learn1.Game.FlabbyByrd
 {
     public class Tunel 
     {

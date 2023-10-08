@@ -1,6 +1,4 @@
-﻿using Learn1.Game;
-
-namespace Learn1.Game
+﻿namespace Learn1.Game
 {
     public class Cube : IDisplay, ICheakCollison
     {
