@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Learn1.Other.MPL
 {
-    public class MPL
+    public interface Expression
     {
-        
-        
+        public double eval();
     }
-
 }

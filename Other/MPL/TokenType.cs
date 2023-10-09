@@ -8,6 +8,13 @@ namespace Learn1.Other.MPL
 {
     public  enum TokenType
     {
-        
+        NUMBER,
+        PLUS,
+        MINUS,
+        STAR,   
+        SLACH,
+        LPAREN,
+        RPAREN,
+        EOF
     }
 }
