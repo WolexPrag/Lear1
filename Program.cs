@@ -5,42 +5,76 @@ using System.Transactions;
 using System.Collections;
 using System.Numerics;
 using System.Linq;
+using System.IO;
 
 namespace Learn1
 {
-   
+    public class Data
+    { 
+        public Data(string type,string name,string value)
+        {
+            _type = type;
+            _name = name;
+            _value = value;
+        }
+        private string _type;
+        private string _name;
+        private string _value;
+        public string type { get { return _type; } }
+        public string name { get { return _name; } }
+        public string value { get { return _value; } }
+    }
+    public class Datas
+    {
+        public void Init(List<Data> data, Type typeData)
+        {
+            _datas = data;
+            _typeData = typeData;
+        }
+        protected Type _typeData;
+        protected List<Data> _datas; 
+    }
+    public interface ISavedData
+    {
+        public Type typeClass { get { return this.GetType(); } }
+        public Datas GetDataForSave();
+        public void SetDataForSave(Datas data);
+    }
+    public class TestClass : ISavedData
+    {
+        public int id;
+        public string name;
+        public List<string> skils;
+
+        public void SetDataForSave(Datas data)
+        {
+            
+        }
+
+        Datas ISavedData.GetDataForSave()
+        {
+            
+            Datas ret = new Datas();
+            
+            return ret;
+        }
+    }
+    public class ConverterClass
+    {
+        public static string Convert(List<Data> data)
+        {
+            string ret;
+            ret = data.ToString();  
+            return ret;
+        }
+    }
     internal class Program
     {
 
         public static void Main(string[] args)
         {
-            List<Block> blocks = new List<Block>(10);
-            blocks.Add(new Block() { id = 9});
-            blocks.Add(new Block() { id = 1});
-            blocks.Add(new Block() { id = 3});
-            blocks.Add(new Block() { id = 2});
-            blocks.Add(new Block() { id = 5});
-            blocks.Add(new Block() { id = 1});
-            blocks.Add(new Block() { id = 5});
-            blocks.Add(new Block() { id = 324});
-            blocks.Add(new Block() { id = 0});
-            blocks.Add(new Block() { id = -67});
-            for (int i = 0; i < blocks.Count; i++)
-            {
-                Console.WriteLine($"{blocks[i].id}");
-            }
             
-            blocks = blocks.GroupBy(x => x.id == 1).Select(x=> x.First()).ToList();
-            Console.WriteLine("======================");
-            for (int i = 0; i < blocks.Count; i++)
-            {
-                Console.WriteLine($"{blocks[i].id}");
-            }
         }
         
     }
-    public class Block
-    {
-        public int id;
-    }  
 }
