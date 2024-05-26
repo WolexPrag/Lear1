@@ -17,16 +17,16 @@ namespace Learn1.Game
             this.position = position;
             this.color = color;
         }
-        public void Display() 
+        public void Display()
         {
-            Console.SetCursorPosition(position.X, position.Y); 
+            Console.SetCursorPosition(position.X, position.Y);
             Console.ForegroundColor = color;
             Console.Write(pixelChar);
         }
         public void Clear()
         {
             Console.SetCursorPosition(position.X, position.Y);
-            Console.Write(' ');   
+            Console.Write(' ');
         }
     }
 }

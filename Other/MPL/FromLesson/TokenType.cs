@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Learn1.Other.MPL.FromLesson
+﻿namespace Learn1.Other.MPL.FromLesson
 {
-    public  enum TokenType
+    public enum TokenType
     {
         NUMBER,
         PLUS,
         MINUS,
-        STAR,   
+        STAR,
         SLACH,
         LPAREN,
         RPAREN,

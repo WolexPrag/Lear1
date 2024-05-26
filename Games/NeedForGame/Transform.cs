@@ -58,7 +58,7 @@ namespace Learn1.Game
             }
             return y;
         }
-        public static Vector2D operator +(Vector2D vector1,Vector2D vector2)
+        public static Vector2D operator +(Vector2D vector1, Vector2D vector2)
         {
             return new Vector2D(vector1.X + vector2.X, vector1.Y + vector2.Y);
         }
@@ -90,7 +90,7 @@ namespace Learn1.Game
         {
             return (vector1.X != vector2.X) && (vector1.Y != vector2.Y);
         }
-        public static (bool,bool) operator >(Vector2D vector1, Vector2D vector2)
+        public static (bool, bool) operator >(Vector2D vector1, Vector2D vector2)
         {
             return ((vector1.X > vector2.X), (vector1.Y > vector2.Y));
         }
@@ -98,7 +98,7 @@ namespace Learn1.Game
         {
             return ((vector1.X < vector2.X), (vector1.Y < vector2.Y));
         }
-        public static List<Vector2D> operator +(List<Vector2D> vectors,Vector2D vector)
+        public static List<Vector2D> operator +(List<Vector2D> vectors, Vector2D vector)
         {
             for (int i = 0; i < vectors.Count; i++)
             {

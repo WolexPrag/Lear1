@@ -1,6 +1,6 @@
 ﻿namespace Learn1.Game.FlabbyByrd
 {
-    public class Tunel 
+    public class Tunel
     {
         protected Vector2D _position; public Vector2D position
         {
@@ -10,6 +10,6 @@
                 _position = value;
             }
         }
-        
+
     }
 }

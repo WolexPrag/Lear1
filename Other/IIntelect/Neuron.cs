@@ -16,7 +16,7 @@ namespace Learn1.Other.IIntelect
                 weights.Add(1);
             }
         }
-        public double FeedForward(List<double> inputs) 
+        public double FeedForward(List<double> inputs)
         {
             double sum = 0f;
             for (int i = 0; i < inputs.Count; i++)
@@ -24,7 +24,7 @@ namespace Learn1.Other.IIntelect
                 sum = sum + inputs[i] * weights[i];
             }
             if (neuronType != NeuronType.Input)
-            { 
+            {
                 output = Sigmoid(sum);
             }
             else
@@ -33,7 +33,7 @@ namespace Learn1.Other.IIntelect
             }
             return output;
         }
-        public void SetWeights(params double[] weights) 
+        public void SetWeights(params double[] weights)
         {
             for (int i = 0; i < weights.Length; i++)
             {
@@ -41,7 +41,7 @@ namespace Learn1.Other.IIntelect
             }
         }
 
-        public double Sigmoid(double x) 
+        public double Sigmoid(double x)
         {
             return 1f / (1f + Math.Pow(Math.E, -x));
         }
@@ -50,5 +50,5 @@ namespace Learn1.Other.IIntelect
             return output.ToString();
         }
     }
-    
+
 }

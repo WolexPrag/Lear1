@@ -4,7 +4,7 @@ namespace Learn1
 {
     public class Byrd : IDisplay, ICheakCollison
     {
-        
+
         protected Vector2D _position; public Vector2D position
         {
             get { return _position; }

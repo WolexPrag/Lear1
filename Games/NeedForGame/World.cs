@@ -28,9 +28,9 @@ namespace Learn1.Game
                 ClearDisplay();
             } while (IsPlay == true);
         }
-        protected virtual void Update(){}
-        protected virtual void Display(){}
-        protected virtual void ClearDisplay(){}
+        protected virtual void Update() { }
+        protected virtual void Display() { }
+        protected virtual void ClearDisplay() { }
         protected virtual void Sleep(int timeSleep)
         {
             Thread.Sleep(timeSleep);

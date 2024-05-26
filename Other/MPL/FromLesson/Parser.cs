@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Learn1.Other.MPL.FromLesson
 {
@@ -61,19 +59,19 @@ namespace Learn1.Other.MPL.FromLesson
                 }
                 if (match(TokenType.SLACH))
                 {
-                    result = new BinaryExpression('/',result, unary());
+                    result = new BinaryExpression('/', result, unary());
                     continue;
                 }
                 break;
             }
-            
+
             return result;
         }
         private Expression unary()
         {
             if (match(TokenType.MINUS))
             {
-                return new UnaryExpression('-',primary());
+                return new UnaryExpression('-', primary());
             }
             if (match(TokenType.PLUS))
             {

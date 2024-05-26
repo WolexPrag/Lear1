@@ -5,7 +5,7 @@
         public string Generate()
         {
             char[] vowel = { 'a', 'e', 'o', 'i' };
-            char[] constantletters = { 'f','r','t','p','w'};
+            char[] constantletters = { 'f', 'r', 't', 'p', 'w' };
             return GenName(vowel, constantletters);
         }
         protected static string GenName(char[] vowel, char[] constantletters)
@@ -27,6 +27,6 @@
                 if (i == 0) { retName = retName.ToUpper(); }
             }
             return retName;
-        }  
+        }
     }
 }

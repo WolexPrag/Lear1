@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Learn1.Other.MPL.FromLesson
+﻿namespace Learn1.Other.MPL.FromLesson
 {
     public class NumberExpression : Expression
     {
-        private double value; 
+        private double value;
         public NumberExpression(double value)
         {
             this.value = value;

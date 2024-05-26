@@ -70,7 +70,7 @@ namespace Learn1.Other.IIntelect
             var inputNeurons = new List<Neuron>();
             for (int i = 0; i < topology.inputCount; i++)
             {
-                Neuron neuron = new Neuron(1,NeuronType.Input);
+                Neuron neuron = new Neuron(1, NeuronType.Input);
                 inputNeurons.Add(neuron);
             }
             var inputLayer = new Layer(inputNeurons, NeuronType.Input);

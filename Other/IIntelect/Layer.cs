@@ -13,7 +13,7 @@ namespace Learn1.Other.IIntelect
             {
                 if (neurons[i].neuronType != type)
                 {
-                    throw new Exception(message:"Not Correct Type Neurons");
+                    throw new Exception(message: "Not Correct Type Neurons");
                 }
             }
             this.neurons = neurons;

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Learn1.Other.MPL.FromLesson
 {
@@ -51,7 +48,7 @@ namespace Learn1.Other.MPL.FromLesson
                 buffer.Append(current);
                 current = next();
             }
-            addToken(TokenType.NUMBER,buffer.ToString());
+            addToken(TokenType.NUMBER, buffer.ToString());
         }
         private void tokenizeOperator()
         {
@@ -76,7 +73,7 @@ namespace Learn1.Other.MPL.FromLesson
         }
         private void addToken(TokenType type, string text)
         {
-           tokens.Add(new Token(type, text));
+            tokens.Add(new Token(type, text));
         }
     }
 
