@@ -11,17 +11,36 @@ namespace Learn1
         public static void TF()
         {
             List<Characteristics> listCharacteristics = new List<Characteristics>();
-            int count = 10000;
+            int count = 10;
             Random rand = new Random();
             for (int i = 0; i < count; i++)
             {
-
+                Characteristics add = new Characteristics();
+                add.characteristics.Add( new Health(100));
+                add.characteristics.Add(new Damage(20));
+                add.characteristics.Add(new Accuracy(0.5f));
+                listCharacteristics.Add(add);
+                       
 
             }
             for (int i = 0; i < count; i++)
             {
-                Console.WriteLine();
+                PrintCharacteristics(listCharacteristics[i]);
+                
             }
+        }
+        public static void PrintCharacteristics(Characteristics characteristics)
+        {
+            Console.WriteLine($"{characteristics.GetType()}" + " { ");
+            for (int i = 0; i < characteristics.characteristics.Count; i++)
+            {
+                Console.Write($"{characteristics.characteristics[i].GetType()} = {characteristics.characteristics[i].value}");
+                if(i+1 < characteristics.characteristics.Count)
+                {
+                    Console.Write(", ");
+                }
+            }
+            Console.WriteLine(" }");
         }
         public static void PrintTime(long time)
         {
@@ -40,6 +59,7 @@ namespace Learn1
         
         public static void Main(string[] args)
         {
+            TestCharacteristics();
 
         }
 
