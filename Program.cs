@@ -8,27 +8,26 @@ namespace Learn1
 {
     internal class Program
     {
-        public static void TF()
+        public static void TestFunction1()
         {
             List<Characteristics> listCharacteristics = new List<Characteristics>();
-            int count = 10;
+            int count = 1000;
             Random rand = new Random();
             for (int i = 0; i < count; i++)
             {
                 Characteristics add = new Characteristics();
-                add.characteristics.Add( new Health(100));
-                add.characteristics.Add(new Damage(20));
-                add.characteristics.Add(new Accuracy(0.5f));
+
+                add.characteristics.Add(new Health(i * 100));
+                add.characteristics.Add(new Accuracy((float)1 / (float)count * rand.Next(i)));
+                add.characteristics.Add(new Damage(
+                    (float)add.characteristics[0].value / count * rand.Next(i) * (float)add.characteristics[1].value));
+
                 listCharacteristics.Add(add);
-                       
+                PrintCharacteristics(listCharacteristics[i]);
 
             }
-            for (int i = 0; i < count; i++)
-            {
-                PrintCharacteristics(listCharacteristics[i]);
-                
-            }
         }
+        
         public static void PrintCharacteristics(Characteristics characteristics)
         {
             Console.WriteLine($"{characteristics.GetType()}" + " { ");
@@ -37,7 +36,7 @@ namespace Learn1
                 Console.Write($"{characteristics.characteristics[i].GetType()} = {characteristics.characteristics[i].value}");
                 if(i+1 < characteristics.characteristics.Count)
                 {
-                    Console.Write(", ");
+                    Console.WriteLine(", ");
                 }
             }
             Console.WriteLine(" }");
@@ -48,7 +47,7 @@ namespace Learn1
         }
         public static void TestCharacteristics()
         {
-            TestDelegate deleg = new TestDelegate(TF);
+            TestDelegate deleg = new TestDelegate(TestFunction1);
             Console.WriteLine("Start Test");
             long time = Tester.Test(deleg);
             long midlTime = Tester.MultipleTest(deleg);

@@ -18,9 +18,8 @@ namespace Learn1.Other.Chararcteristics
 
         public Characteristics()
         {
-            characteristics = new List<ICharacteristic>();
-            
-        }
+            characteristics = new List<ICharacteristic>();  
+        } 
         protected VoidEventParam<IValueObservable> _onChange;
         
         public virtual void Subscribe(VoidEventParam<IValueObservable> subscriber)

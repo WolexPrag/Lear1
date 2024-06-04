@@ -12,9 +12,6 @@ namespace Learn1.Other.Chararcteristics
         public abstract void Subscribe(VoidEventParam<T1> subscriber);
         public abstract void UnSubscribe(VoidEventParam<T1> subscriber);
     }
-    public class ChangeNotifier<T1>
-    {
-    }
     public interface IValueObservable : IReadOnlyValue, IChangeNotifier<IValueObservable>
     {
     }
